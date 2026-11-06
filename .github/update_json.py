@@ -166,7 +166,7 @@ def update_json_file_nightly(json_file, nightly_release):
     commit_msg = os.environ.get("commit_msg", "").strip()
 
     description = f"""\
-Nightly build from [{commit_sha}](https://github.com/LiveContainer/LiveContainer/commit/{commit_sha}):\
+Nightly build from [{commit_sha}](https://github.com/{os.environ.get("GITHUB_REPOSITORY", "YetAnotherSideStoreFork/LiveContainer")}/commit/{commit_sha}):\
  {commit_msg}
 
 This is a nightly release [created automatically with GitHub Actions workflow]({nightly_link}).
@@ -331,8 +331,63 @@ Nightly build from [{commit_sha}](https://github.com/LiveContainer/LiveContainer
         raise
 
 
+SIDESTORE_REPO = "YetAnotherSideStoreFork/SideStore"
+SIDESTORE_BUNDLE_ID = "com.SideStore.SideStore"
+
+def update_json_file_sidestore_nightly(json_file):
+    releases = fetch_latest_release(SIDESTORE_REPO, True)
+    if not releases:
+        print("No SideStore nightly release found, skipping")
+        return
+    release = releases[0]
+
+    asset = next((a for a in release.get("assets", []) if a["name"] == "SideStore.ipa"), None)
+    if asset is None:
+        print("SideStore.ipa not found in SideStore nightly release, skipping")
+        return
+
+    version = "0.0.0"
+    try:
+        ref = release.get("target_commitish") or "develop"
+        xcconfig = requests.get(f"https://raw.githubusercontent.com/{SIDESTORE_REPO}/{ref}/Build.xcconfig")
+        xcconfig.raise_for_status()
+        m = re.search(r"MARKETING_VERSION\s*=\s*([\d.]+)", xcconfig.text)
+        if m:
+            version = m.group(1)
+    except requests.RequestException as e:
+        print(f"Could not read SideStore version: {e}")
+
+    with open(json_file, "r") as file:
+        data = json.load(file)
+
+    app = next((a for a in data["apps"] if a["bundleIdentifier"] == SIDESTORE_BUNDLE_ID), None)
+    if app is None:
+        print("SideStore entry missing from source JSON")
+        return
+
+    description = prepare_description(release.get("body") or "Nightly build of SideStore.")
+    entry = {
+        "version": version,
+        "date": release["published_at"],
+        "localizedDescription": description,
+        "downloadURL": asset["browser_download_url"],
+        "size": asset["size"]
+    }
+    app["versions"] = [entry]
+    app.update({
+        "version": version,
+        "versionDate": release["published_at"],
+        "versionDescription": description,
+        "downloadURL": asset["browser_download_url"],
+        "size": asset["size"]
+    })
+
+    with open(json_file, "w") as file:
+        json.dump(data, file, indent=2)
+    print("SideStore entry updated successfully.")
+
 def main():
-    repo_url = "LiveContainer/LiveContainer"
+    repo_url = os.environ.get("GITHUB_REPOSITORY", "YetAnotherSideStoreFork/LiveContainer")
     is_nightly = "NIGHTLY_LINK" in os.environ
 
     try:
@@ -340,7 +395,7 @@ def main():
         if is_nightly:
             json_file = "./.github/apps_nightly.json"
             update_json_file_nightly(json_file, fetched_data_latest)
-            update_json_file_release_ss_lc(repo_url, "./.github/apps_ss_lc.json", fetched_data_latest, True)
+            update_json_file_sidestore_nightly(json_file)
         else:
             json_file = "./.github/apps.json"
             update_json_file_release(repo_url, json_file, fetched_data_latest)

@@ -1,12 +1,12 @@
 {
-  "name": "LiveContainer (nightly)",
-  "identifier": "com.livecontainer.source.nightly",
-  "website": "https://github.com/LiveContainer/LiveContainer",
-  "subtitle": "LiveContainer (nightly) official AltStore Source.",
-  "description": "This is the official AltStore Source for LiveContainer (nightly).\n\n Run iOS apps without actually installing them!",
+  "name": "LiveContainer + SideStore (nightly)",
+  "identifier": "com.yasf.source.nightly",
+  "website": "https://github.com/YetAnotherSideStoreFork/LiveContainer",
+  "subtitle": "Unofficial nightly builds of LiveContainer and SideStore.",
+  "description": "Unofficial nightly builds of LiveContainer and SideStore. No support by the LiveContainer or SideStore teams will be provided.",
   "tintColor": "#0784FC",
-  "iconURL": "https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/AppIcon1024.png",
-  "headerURL": "https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/header.png",
+  "iconURL": "https://raw.githubusercontent.com/YetAnotherSideStoreFork/LiveContainer/main/screenshots/AppIcon1024.png",
+  "headerURL": "https://raw.githubusercontent.com/YetAnotherSideStoreFork/LiveContainer/main/screenshots/header.png",
   "apps": [
     {
       "beta": false,
@@ -16,15 +16,15 @@
       "subtitle": "Run iOS apps without actually installing them!",
       "version": "3.4.50",
       "versionDate": "2025-04-26",
-      "versionDescription": "This is a nightly release [created automatically with GitHub Actions workflow](https://github.com/LiveContainer/LiveContainer/actions/runs/14679205373/attempts/1).",
-      "downloadURL": "https://github.com/LiveContainer/LiveContainer/releases/download/nightly/LiveContainer.ipa",
+      "versionDescription": "This is a nightly release [created automatically with GitHub Actions workflow](https://github.com/YetAnotherSideStoreFork/LiveContainer/actions/runs/14679205373/attempts/1).",
+      "downloadURL": "https://github.com/YetAnotherSideStoreFork/LiveContainer/releases/download/nightly/LiveContainer.ipa",
       "localizedDescription": "Run iOS apps without actually installing them!",
-      "iconURL": "https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/AppIcon1024.png",
+      "iconURL": "https://raw.githubusercontent.com/YetAnotherSideStoreFork/LiveContainer/main/screenshots/AppIcon1024.png",
       "tintColor": "#0784FC",
       "category": "utilities",
       "size": 2785962,
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/1.png"
+        "https://raw.githubusercontent.com/YetAnotherSideStoreFork/LiveContainer/main/screenshots/1.png"
       ],
       "appPermissions": {
         "entitlements": [
@@ -82,11 +82,33 @@
         {
           "version": "3.4.50",
           "date": "2025-04-26T07:00:00Z",
-          "localizedDescription": "This is a nightly release [created automatically with GitHub Actions workflow](https://github.com/LiveContainer/LiveContainer/actions/runs/14679205373/attempts/1).",
-          "downloadURL": "https://github.com/LiveContainer/LiveContainer/releases/download/nightly/LiveContainer.ipa",
+          "localizedDescription": "This is a nightly release [created automatically with GitHub Actions workflow](https://github.com/YetAnotherSideStoreFork/LiveContainer/actions/runs/14679205373/attempts/1).",
+          "downloadURL": "https://github.com/YetAnotherSideStoreFork/LiveContainer/releases/download/nightly/LiveContainer.ipa",
           "size": 2785962
         }
       ]
+    },
+    {
+      "beta": false,
+      "name": "SideStore (nightly)",
+      "bundleIdentifier": "com.SideStore.SideStore",
+      "developerName": "SideStore Team",
+      "subtitle": "Untethered sideloading with a personal Apple ID.",
+      "version": "0.0.0",
+      "versionDate": "2025-01-01T00:00:00Z",
+      "versionDescription": "Nightly build.",
+      "downloadURL": "https://github.com/YetAnotherSideStoreFork/SideStore/releases/download/nightly/SideStore.ipa",
+      "localizedDescription": "Unofficial nightly build of SideStore.",
+      "iconURL": "https://raw.githubusercontent.com/YetAnotherSideStoreFork/LiveContainer/main/screenshots/AppIcon1024.png",
+      "tintColor": "#8A28F7",
+      "category": "utilities",
+      "size": 0,
+      "screenshotURLs": [],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      },
+      "versions": []
     }
   ],
   "news": []
